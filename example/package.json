@@ -8,17 +8,15 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --progress --colors",
-    "watch": "webpack --colors --watch",
-    "preserve": "npm run build",
-    "serve": "cd public && serve -s"
+    "start": "webpack-serve --open --content public"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
-    "serve": "^7.1.1",
     "webpack": "^4.10.1",
-    "webpack-cli": "^2.1.4"
+    "webpack-cli": "^2.1.4",
+    "webpack-serve": "^1.0.2"
   }
 }

@@ -8,7 +8,7 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 module.exports = {
   entry: resolveApp("./src/index.js"),
   target: "web",
-  mode: "production",
+  mode: process.env.WEBPACK_SERVE ? "development" : "production",
   devtool: "source-map",
 
   output: {
