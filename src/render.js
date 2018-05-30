@@ -21,6 +21,7 @@ function createDOMFromNode(node) {
     const isMeowactComponent = instance instanceof Component;
     if (!isMeowactComponent) return null;
     const createdDom = createDOMFromNode(instance.render());
+    instance.componentDidMount();
     return createdDom;
   }
 
