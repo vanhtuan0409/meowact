@@ -1,0 +1,9 @@
+{
+  "name": "meowact",
+  "version": "1.0.0",
+  "description": "Simple React rerewrite",
+  "main": "index.js",
+  "repository": "https://github.com/vanhtuan0409/meowact",
+  "author": "Tuan Vuong <vanhtuan0409@gmail.com>",
+  "license": "MIT"
+}
