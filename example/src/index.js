@@ -1,4 +1,5 @@
 import Meowact from "../../index";
 import App from "./components/App";
 
-Meowact.render(<App title="Meowact" />, document.getElementById("root"));
+const app = <App title="Meowact" />;
+Meowact.render(app, document.getElementById("root"));

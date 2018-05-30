@@ -14,6 +14,7 @@ function createDOMFromNode(node) {
   }
 
   const { tag, props } = node;
+
   // ES6 Class Component
   if (isES6Class(tag)) {
     const instance = new tag(props);
@@ -30,17 +31,34 @@ function createDOMFromNode(node) {
   // HTML Element
   if (typeof tag === "string") {
     const dom = document.createElement(tag);
+    bindAttributes(dom, props);
     if (props.children && props.children.length > 0) {
       const children = props.children.map(createDOMFromNode);
       children.forEach(child => dom.appendChild(child));
-      return dom;
     }
+    return dom;
   }
 
   console.warn("Unknown vdom: ", node);
   return null;
 }
 
+function bindAttributes(dom, props) {
+  if (haveEventListener("onClick", props)) {
+    dom.addEventListener("click", props.onClick);
+  }
+
+  Object.entries(props).forEach(([name, value]) => {
+    if (name !== "children") {
+      dom.setAttribute(name, value);
+    }
+  });
+}
+
 function isES6Class(v) {
   return typeof v === "function" && /^\s*class\s+/.test(v.toString());
+}
+
+function haveEventListener(event, props) {
+  return props[event] && typeof props[event] === "function";
 }
