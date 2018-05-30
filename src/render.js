@@ -18,9 +18,10 @@ function createDOMFromNode(node) {
   // ES6 Class Component
   if (isES6Class(tag)) {
     const instance = new tag(props);
-    return instance instanceof Component
-      ? createDOMFromNode(instance.render())
-      : null;
+    const isMeowactComponent = instance instanceof Component;
+    if (!isMeowactComponent) return null;
+    const createdDom = createDOMFromNode(instance.render());
+    return createdDom;
   }
 
   // Stateless Function Component
@@ -48,9 +49,15 @@ function bindAttributes(dom, props) {
     dom.addEventListener("click", props.onClick);
   }
 
-  Object.entries(props).forEach(([name, value]) => {
-    if (name !== "children") {
-      dom.setAttribute(name, value);
+  Object.entries(props).forEach(([key, value]) => {
+    if (typeof value == "function" && key.startsWith("on")) {
+      const eventType = key.slice(2).toLowerCase();
+      dom.removeEventListener(eventType, value);
+      dom.addEventListener(eventType, value);
+    } else if (key === "checked" || key === "value" || key === "id") {
+      dom[key] = value;
+    } else if (typeof value != "object" && typeof value != "function") {
+      dom.setAttribute(key, value);
     }
   });
 }
