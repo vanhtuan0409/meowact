@@ -1,0 +1,12 @@
+{
+  "presets": ["stage-2"],
+  "plugins": [
+    "transform-class-properties",
+    [
+      "transform-react-jsx",
+      {
+        "pragma": "createElement"
+      }
+    ]
+  ]
+}
