@@ -6,8 +6,8 @@ _And everyone love cat too_
 
 ### Checklist
 
-* [ ] JSX
-* [ ] Render VDOM
+* [x] JSX
+* [x] Render VDOM
 * [ ] Reconciliation
 * [ ] Component life-cycle
 * [ ] Context

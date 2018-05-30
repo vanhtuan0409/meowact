@@ -1,3 +1,4 @@
 import Meowact from "../../index";
+import App from "./components/App";
 
-console.log("hello world!!!");
+Meowact.render(<App title="Meowact" />, document.getElementById("root"));
