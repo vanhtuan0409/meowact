@@ -8,6 +8,10 @@ export default class App extends Meowact.Component {
     this.onBtnClick = this.onBtnClick.bind(this);
   }
 
+  componentDidMount() {
+    console.log(document.getElementById("lalala"));
+  }
+
   onBtnClick() {
     console.log("asdasdadasd");
   }
@@ -15,7 +19,7 @@ export default class App extends Meowact.Component {
   render() {
     const { title } = this.props;
     return (
-      <div>
+      <div id="lalala">
         <Title title={title} />
         <p class="meow">
           Hello <span>world</span>!!

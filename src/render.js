@@ -1,16 +1,12 @@
 import Component from "./Component";
 
-export default function render(vdom, target) {
-  const dom = createDOMFromNode(vdom);
-  if (dom) {
-    target.appendChild(dom);
-  }
-}
+export default function render(node, target = null) {
+  // Util function to mount element into target
+  const mount = target ? el => target.appendChild(el) : el => el;
 
-function createDOMFromNode(node) {
   // String or number
   if (typeof node === "string" || typeof node === "number") {
-    return document.createTextNode(node);
+    return mount(document.createTextNode(node));
   }
 
   const { tag, props } = node;
@@ -20,23 +16,23 @@ function createDOMFromNode(node) {
     const instance = new tag(props);
     const isMeowactComponent = instance instanceof Component;
     if (!isMeowactComponent) return null;
-    const createdDom = createDOMFromNode(instance.render());
+    const createdDom = render(instance.render(), target);
     instance.componentDidMount();
     return createdDom;
   }
 
   // Stateless Function Component
   if (typeof tag === "function") {
-    return createDOMFromNode(tag(props));
+    return render(tag(props), target);
   }
 
   // HTML Element
   if (typeof tag === "string") {
     const dom = document.createElement(tag);
     bindAttributes(dom, props);
+    mount(dom);
     if (props.children && props.children.length > 0) {
-      const children = props.children.map(createDOMFromNode);
-      children.forEach(child => dom.appendChild(child));
+      props.children.map(child => render(child, dom));
     }
     return dom;
   }
